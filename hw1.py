@@ -3,8 +3,8 @@ lowers = 'abcdefghijklmnopqrstuvwxyz'
 uppers = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
             
 def encrypt(plaintext, key):
-    ciphertext = ''
-    for x in plaintext:
+    ciphertext = '' #initializing text for return string
+    for x in plaintext: #Go char by char to change the plaintext to cipihertext
         if x in lowers:
             x = lowers[(lowers.index(x) + (key % 26))%26]
             ciphertext += x
@@ -17,8 +17,8 @@ def encrypt(plaintext, key):
     # print("Your encrypted word is: " + ciphertext + ".")   
     return ciphertext
 def decrypt(ciphertext, key):
-    plaintext = ""
-    for x in ciphertext:
+    plaintext = "" #initializing text that will be added to to return plaintext
+    for x in ciphertext: #Go char by char to change the ciphertext to plaintext
         if x in lowers:
             x = lowers[(lowers.index(x) - (key % 26))%26]
             plaintext += x
@@ -45,26 +45,21 @@ def fileDecrypt(ciphertext, filename):
 
     # FINDING THE KEY
     matches = []
-    keyFound = False
     for keyFind in range(26): #Iterate through all keys possible (0-25)
         decryptedWords = [decrypt(word, keyFind) for word in cipherWords]
         for each in decryptedWords:
             for every in wordsFromFile:
-                if keyFound:
-                    pass
-                elif each == every: #Checks for matches between input and the file
+                if each == every: #Checks for matches between input and the file
                     matches.append(each)
                     key = keyFind
-                    keyFound = True
-                    # print(f"Found {each} using the key {keyFind}")
-                    # break
-    # print(decryptedWords)
+                    break
     plaintext = ' '.join(matches)
     print(f"Output:\n\tKey: {key}\n\tPlaintext Message: {plaintext}")
 
         
 #-----------------------Testing Each Function-------------------------------
 # for each in range(26):
+# fileDecrypt(encrypt('ago identify world hard computer', 12), 'sample.txt')
 # print(encrypt('computer world science simulation', 15)) #sdgdzdq vlpxodwlrq
 # # print(decrypt('jgnnq rcfcycp', 2))
 # fileDecrypt('rdbejitg ldgas hrxtcrt hxbjapixdc', '../sample.txt')
@@ -75,8 +70,8 @@ print('----------------------------------------------------------------------')
 print('Welcome to CipherHelper! Please choose one of the following options:')
 print('\t(1): Encrypt a Message')
 print('\t(2): Decrypt a Message')
-print('\t(3): Decrypt a Message, then find in a file')
-print('\t(3): Exit CipherHelper')
+print('\t(3): Decrypt a Message Using a File')
+print('\t(0): Exit CipherHelper')
 print('----------------------------------------------------------------------')
 
 menuInput = input()
